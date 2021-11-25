@@ -1,3 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://antor:antor1234@cluster0.t0ab5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://antor:antor1234@cluster0.t0ab5.mongodb.net/devConnector?retryWrites=true&w=majority"
 }
