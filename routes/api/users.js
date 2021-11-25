@@ -5,9 +5,9 @@ const gravatar = require("gravatar")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const config = require("config")
+const { StatusCodes } = require("http-status-codes")
 
 const User = require("../../models/User")
-
 // @route     POST api/users
 // @desc      Register user
 // @access    Public
@@ -27,7 +27,9 @@ router
     async (req, res) => {
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+        return res
+          .status(StatusCodes.BAD_REQUEST)
+          .json({ errors: errors.array() })
       }
 
       const { name, email, password } = req.body
@@ -38,7 +40,7 @@ router
 
         if (user) {
           return res
-            .status(400)
+            .status(StatusCodes.BAD_REQUEST)
             .json({ errors: [{ msg: "User already exists" }] })
         }
         // TODO: Get users gravatar
@@ -77,7 +79,7 @@ router
         )
       } catch (error) {
         console.error(error.message)
-        res.status(500).send("Server error")
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server error")
       }
     }
   )
