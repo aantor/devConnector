@@ -73,7 +73,7 @@ router.post(
     if (status) profileFields.status = status
     if (gihubusername) profileFields.gihubusername = gihubusername
     if (skills) {
-      profileFields.skills = skills.split(",").map((skill) => skill.trim())
+      profileFields.skills = skills.split(",").map((skill) => skill.trim())  // user given type: html,css,js
     }
 
     // Build social object
@@ -107,5 +107,39 @@ router.post(
     }
   }
 )
+
+// @route     GET api/profile
+// @desc      Get all profiles
+// @access    Public
+
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar'])
+    res.json(profiles)
+  } catch (error) {
+    console.error(error.message)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Server error');
+  }
+});
+
+// @route     GET api/profile/user/:user_id
+// @desc      Get profile by user ID
+// @access    Public
+router.get('/user/:user_id', async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar'])
+    if (!profile) {
+      res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Profile not found' });
+    }
+    res.json(profile)
+  } catch (error) {
+    console.error(error.message)
+    if (error.kind == 'ObjectId') {
+      res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Profile not found' });
+    }
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Server error');
+  }
+});
+
 
 module.exports = router
