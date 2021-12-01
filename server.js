@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const connectDB = require("./config/db")
+const chalk = require('chalk');
 
 const app = express()
 
@@ -22,4 +23,4 @@ app.use("/api/posts", require("./routes/api/posts"))
 
 const port = process.env.PORT || 5000
 
-app.listen(port, () => `Server running on port port 🔥`)
+app.listen(port, () => console.log(chalk.bgYellow.black(`Server running at http://127.0.0.1:${port}`)))
