@@ -22,22 +22,14 @@ router.get("/", auth, async (req, res) => {
 })
 
 // @route     POST api/auth
-<<<<<<< HEAD
 // @desc      Authenticate (Login) user & get token
-=======
-// @desc      Authenticate user & get token
->>>>>>> 2ae9cacfe72840c59735d717a11b449783e1c038
 // @access
 
 router.post(
   "/",
   [
     check("email", "Please include a valid email").isEmail(),
-<<<<<<< HEAD
     check("password", "Password is required").exists(),
-=======
-    check("password", "Please is required").exists(),
->>>>>>> 2ae9cacfe72840c59735d717a11b449783e1c038
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -90,8 +82,4 @@ router.post(
   }
 )
 
-<<<<<<< HEAD
 module.exports = router
-=======
-module.exports = router
->>>>>>> 2ae9cacfe72840c59735d717a11b449783e1c038

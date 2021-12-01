@@ -4,11 +4,7 @@ const Schema = mongoose.Schema
 const ProfileSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-<<<<<<< HEAD
     ref: "User",
-=======
-    ref: "user",
->>>>>>> 2ae9cacfe72840c59735d717a11b449783e1c038
   },
   company: {
     type: String,
